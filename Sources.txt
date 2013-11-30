@@ -1,0 +1,13 @@
+http://stackoverflow.com/questions/14429885/audio-feature-extraction-using-fft-psd-and-stft-and-finding-the-most-powerful-f
+
+http://stackoverflow.com/questions/15158942/how-to-use-mfcc-feature-to-train-a-svm-classifier-for-voice-recognition
+
+http://stackoverflow.com/questions/3790445/1d-multiple-peak-detection
+
+http://stackoverflow.com/questions/13698345/filter-message-from-noisy-voice-signal
+
+http://stackoverflow.com/questions/17327666/matlab-code-that-records-voice-and-fourier-transforms-it-encounters-audiplayer-e
+
+http://stackoverflow.com/questions/7407298/voice-recognition-matlab
+
+http://stackoverflow.com/questions/4227420/matlab-missing-fundamental-from-an-fft/4231322#4231322
