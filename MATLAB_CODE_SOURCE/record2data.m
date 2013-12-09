@@ -1,12 +1,19 @@
-function [R] = record2data(duration, n)
+function [avg] = record2data(duration, n)
 
 acc = zeros(duration*8000,1);
 for i=1:n
     recordSignal = record(8000, duration);
-    datas = cell2mat(detectVoiced(getaudiodata(recordSignal),8000));
-    datas = datas.*hamming(length(datas));
-    filterHF = [1 0.9];
-    datas = filter(1,filterHF,datas);
+    voice = getaudiodata(recordSignal);
+    datas = detectVoiced(voice,8000);
+    
+    if length(datas) == 1
+        datas = cell2mat(datas);
+        datas = cleanSignal(datas);
+    else
+        avg = voice;
+        return;
+    end
+    
     if length(datas) < length(acc)
         datas(length(acc)) = 0;
     end
@@ -15,7 +22,7 @@ for i=1:n
     plot(datas);
 end
 
-R = acc/n;
+avg = acc/n;
 subplot(n+1,1,n+1);
 plot(acc/n);
 end
