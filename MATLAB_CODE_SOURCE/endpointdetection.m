@@ -1,9 +1,9 @@
 function [points] = endpointdetection(inputSignal)
     P = inputSignal .^ 2;
     size(P)
-    noiseValue = sum(P)/length(P) * 5;
+    noiseValue = sum(P)/length(P);
     plot(P)
-%     line([0,length(inputSignal)],[noiseValue,noiseValue]);
+    line([0,length(inputSignal)],[noiseValue,noiseValue]);
     
     points = {};
     increment = 1;
