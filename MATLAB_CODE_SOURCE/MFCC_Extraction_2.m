@@ -1,55 +1,64 @@
+function [moyenne] = MFCC_Extraction_2(file1, file2)
+
 fs= 11000; %echantillonage
-t= 40;
-overlap= 0.5;
-ceps = 12; %nombre de coefficients MFC 
-%preEmphasized = filter([1 -.97], 1, A);
-%a=buffer(preEmphasized,t,overlap,'nodelay');
-%cols=size(a,2);
-%ceps = zeros(ceps, cols);
+
  
- A=audioread('a.wav');
-A_Mfcc= melcepst(A,1100);
+A=audioread(file1);
+A_Mfcc= melcepst(A,fs);
 subplot(221)
 plot(A_Mfcc);
 [ARows,ACols] = size(A_Mfcc);
 
 disp(ARows);
 
-B=audioread('b.wav');
-B_Mfcc= melcepst(B,1100);
+B=audioread(file2);
+B_Mfcc= melcepst(B,fs);
 subplot(222);
 plot(B_Mfcc);
 [BRows,BCols] = size(B_Mfcc);
 
 disp(BRows);
-
 cmp = ARows - BRows;
 disp(cmp);
     if (cmp > 0)
         % A est plus grand et B prends la taille de A, on remplit de 0s
+        temp = zeros(ARows,12);
+        disp(size(B_Mfcc(:,12)));
+        for i=1:12
+           for j=1:BRows
+               temp(j,i)=B_Mfcc(j,i);
+           end
+        end
+        B_Mfcc=temp;
+        disp(size(B_Mfcc(:,12)));
+
         
-        
-        
-        B_Mfcc = padarray(B_Mfcc,[cmp 0]);
-    
+
     else
-          % B est plus grand et A doit prendre la taille de B 
-                    
+        % B est plus grand et A doit prendre la taille de B 
+        temp = zeros(BRows,12);
+        for i=1:12
+            for j=1:ARows
+                temp(j,i)=A_Mfcc(j,i);
+            end
+        end
+        A_Mfcc=temp;
           
-          A_Mfcc = padarray(A_Mfcc,[abs(cmp) 0]);
     end
     
 
-AdistB = (12);
-for i=1:13
+
+sum=0;
+for i=1:12
     
     temp1=A_Mfcc(:,i);
     temp2=B_Mfcc(:,i);
     
     temp3 = simmx(temp1, temp2);
+    
     sum = sum + temp3;
 end
 moyenne = sum / 12;
 
 disp('distance a et b = ');
-disp(moyenne);
+
