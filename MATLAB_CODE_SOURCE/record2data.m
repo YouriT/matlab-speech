@@ -1,10 +1,12 @@
-function [avg] = record2data(duration, n)
+function [avg] = record2data(duration, n,Fs)
+
+%Fs typiquement 11000
 
 acc = zeros(duration*8000,1);
 for i=1:n
-    recordSignal = record(8000, duration);
+    recordSignal = record(Fs, duration);
     voice = getaudiodata(recordSignal);
-    datas = detectVoiced(voice,8000);
+    datas = detectVoiced(voice,Fs);
     
     if length(datas) == 1
         datas = cell2mat(datas);

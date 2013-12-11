@@ -1,19 +1,22 @@
-function [matches] = diffBetweenSignals(word,alphabet)
+function [matches] = diffBetweenSignals_newGen(word,alphabet,Fs)
 
-acronyme = detectVoiced(word, 8000); %divise le signal
+%Fs typiquement 11000
+
+acronyme = detectVoiced(word, Fs); %divise le signal
+[acro_rows,acro_cols] = size(acronyme); %trouver le nombre de lettres
 %mfccDico = cell(1,length(alphabet));%Création du tableau de cellule de longueur de l'alphabet
 
 %for i=1:length(alphabet)
 %    mfccDico{i} = melcepst(alphabet{i},8000);%Extraction des coefficients Mfcc de chaque lettre de l'alphabet
 %end
 
-matches = zeros(1,acronymeCols);%Tableau contenant le résultat de la comparaison
+matches = zeros(1,acro_cols);%Tableau contenant le résultat de la comparaison
 %currentLetter = 0;%La lettre en cours de comparaison
 
-for i=1:length(acronymeCols)
+for i=1:length(acro_cols)
     temp = 0; %valeur de différence entre les signaux
     for j=1:length(alphabet)
-        result=MFCC_Extraction_2(acronyme{i,1}, alphabet{j,1});
+        result=MFCC_Extraction_2(acronyme{i,1}, alphabet{j,1}, Fs);
         disp('resultat comparaison numero  ');
         disp(j);
         disp('= ');

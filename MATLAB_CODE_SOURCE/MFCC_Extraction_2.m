@@ -1,13 +1,13 @@
-function [moyenne] = MFCC_Extraction_2(A, B)
+function [moyenne] = MFCC_Extraction_2(A, B, Fs)
 
-fs= 11000; %echantillonage
+%Fs typiquement 11000
 
 %lire le fichier .wav
 %A=audioread(file1);
 %B=audioread(file2);
 %renvoi 12 coefficients MFC -> caractéristiques du signal
-A_Mfcc= melcepst(A,fs);
-B_Mfcc= melcepst(B,fs);
+A_Mfcc= melcepst(A,Fs);
+B_Mfcc= melcepst(B,Fs);
 %afficher sur graphique
 subplot(221)
 plot(A_Mfcc);
@@ -56,11 +56,11 @@ for i=1:12
     sum = sum + temp3;
 end
 moyenne = sum / 12;
-if (moyenne > 0.5)
-    disp('ce sont les mêmes lettres,  distance moyenne ='); 
+    %if (moyenne > 0.5)
+   % disp('ce sont les mêmes lettres,  distance moyenne ='); 
     
-else disp('ce sont des lettres différentes,  distance moyenne ='); 
-end
+%else disp('ce sont des lettres différentes,  distance moyenne ='); 
+%end
 
 
 
