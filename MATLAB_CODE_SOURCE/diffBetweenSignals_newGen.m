@@ -10,10 +10,14 @@ acronyme = detectVoiced(word, 8000); %divise le signal
 matches = zeros(1,acronymeCols);%Tableau contenant le résultat de la comparaison
 %currentLetter = 0;%La lettre en cours de comparaison
 
-for i=1:length(acronyme)
+for i=1:length(acronymeCols)
     temp = 0; %valeur de différence entre les signaux
     for j=1:length(alphabet)
-        result=MFCC_Extraction_2(acronyme{i,1}, alphabet{j,2});
+        result=MFCC_Extraction_2(acronyme{i,1}, alphabet{j,1});
+        disp('resultat comparaison numero  ');
+        disp(j);
+        disp('= ');
+        disp(result);
         if(temp<result)
             temp=result;
             matches{1,i}=j;
