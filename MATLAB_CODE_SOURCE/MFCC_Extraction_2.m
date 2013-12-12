@@ -6,8 +6,8 @@ function [moyenne] = MFCC_Extraction_2(A, B, Fs)
 %A=audioread(file1);
 %B=audioread(file2);
 %renvoi 12 coefficients MFC -> caractéristiques du signal
-A_Mfcc= melcepst(A,Fs);
-B_Mfcc= melcepst(B,Fs);
+A_Mfcc= melcepst(A,Fs,'Mtaz',50);
+B_Mfcc= melcepst(B,Fs,'Mtaz',50);
 %afficher sur graphique
 %subplot(221)
 %plot(A_Mfcc);
