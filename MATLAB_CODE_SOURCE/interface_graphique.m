@@ -44,14 +44,17 @@ uicontrol('style','pushbutton',...
 % Création de l'objet Uicontrol Text résultat
 uicontrol('style','text',...
     'units','normalized',...
-    'position',[0.1 0.2 0.3 0.05],...
-    'string','0',...
+    'position',[0.6 0.9 0.3 0.05],...
+    'string','',...
     'tag','resultat');
 
 uicontrol('style','text',...
     'units','normalized',...
     'position',[0.35 0.9 0.3 0.03],... %[X,Y,Largeur,Hauteur]
     'string','Reconnaissance Vocal');
+
+
+
 % Génération de la structure contenant les identifiants des objects graphiques dont la 
 % propriété Tag a été utilisée.
 
@@ -64,7 +67,7 @@ uicontrol('style','text',...
 %
 
 
-data.Fs = 8000;
+data.Fs = 16000;
 data.nbits_sound=16;
 data.nbits_channel=1;
 
@@ -102,7 +105,7 @@ function record(obj,event)
 % Récupération des données stockées dans les données d'application de l'objet Figure
 % contenant l'objet graphique dont l'action est exécutée (gcbf)
 data=guidata(gcbf);
-signal=record2data(1,1);
+signal=record2data(1,1,16000);
 prompt=cell(1);
 answer=inputdlg(prompt);
 temp=answer{1,1};
@@ -171,16 +174,14 @@ guidata(gcbf,data)
 function match(obj,event)
 data=guidata(gcbf);
 recognizion=record2data(5,1,16000);
-a=diffBetweenSignals_newGen(recognizion,data.tbsignaux,16000);
-
-disp(a);    
+a=diffBetweenSignals_newGen(recognizion,data.tbsignaux,16000);    
 longueur_mot=length(a);
 mot=blanks(longueur_mot);
 for i=1:longueur_mot
     mot(i)=data.tbcell{a{1,i},1};
 end
 disp(mot);
-
+mot=upper(mot);
 web(strcat('http://en.wikipedia.org/wiki/',mot));
 
 %prompt=cell(1);
