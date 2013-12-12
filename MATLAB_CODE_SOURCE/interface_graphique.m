@@ -55,7 +55,7 @@ uicontrol('style','pushbutton',...
     'callback',@match,...
     'tag','bouton_match');
 
-% Création de l'objet Uicontrol Bouton Close
+% Création de l'objet Uicontrol Bouton Quitter
 uicontrol('style','pushbutton',...
     'units','normalized',...
     'position',[0.77 0.8 0.15 0.05],...
@@ -63,30 +63,14 @@ uicontrol('style','pushbutton',...
     'callback',@close,...
     'tag','bouton_close');
 
+%Définition des variables
 
-% Génération de la structure contenant les identifiants des objects graphiques dont la 
-% propriété Tag a été utilisée.
-
-% D'après les Tag utilisés pour les objets graphiques crées précédemment, la structure data 
-% contient les champs suivant :
-%   data.interface
-%   data.resultat
-%   data.bouton_ajouter
-%   data.bouton_retrancher
-%
-
-
-data.Fs = 16000;
-data.nbits_sound=16;
-data.nbits_channel=1;
-
-%L'utilisateur enregistre un son
-data.isListenning=0;
 data.resultat=blanks(1);
 %Nombre de lettre que l'utilisateur a enregistré
 data.nbletter=0;
 %Tableau contenant les lettres enregistrées
 data.tbcell = cell(data.nbletter,1);
+%Tableau contenant les sons enregistrés
 data.tbsignaux=cell(data.nbletter,1);
 %Alphabet
 data.alphabet={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
@@ -102,16 +86,12 @@ end;
 data.columnName = {'Lettre'};
 data.tableau=uitable('ColumnName', data.columnName,'Data', data.tbcell,'Position',[50 50 110 320]);
 
-
-%data.rec = audiorecorder(data.Fs,data.nbits_sound,data.nbits_channel);
-%data.rec_save = audiorecorder(data.Fs,data.nbits_sound,data.nbits_channel);
-
 % Enregistrement de data dans les données d'application de l'objet Figure
 
 guidata(gcf,data)
 
 %%%%%%%%%%%%%%%%%%%%%%%%
-%FONCTIONs SECONDAIRES%
+%FONCTIONS SECONDAIRES%
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 function close(obj,event)
@@ -127,6 +107,7 @@ function record(obj,event)
 % Récupération des données stockées dans les données d'application de l'objet Figure
 % contenant l'objet graphique dont l'action est exécutée (gcbf)
 data=guidata(gcbf);
+%Récupération du son a enregistré
 signal=record2data(1,1,16000);
 prompt=cell(1);
 answer=inputdlg(prompt);
@@ -156,12 +137,6 @@ end;
 %Rafraichissement du tableau
 set(data.tableau, 'Data', data.tbcell);
 
-    %data.tbcell{data.nbletter,2} = getaudiodata(data.rec)
-    %data.rec = audiorecorder(data.Fs,data.nbits_sound,data.nbits_channel);
-
-% Modification de sa propriété String
-%set(data.resultat,'string',num2str(data.nCompteur));
-
 % Enregistrement des données modifiées dans les données d'application de l'objet Figure
 % contenant l'objet graphique dont l'action est exécutée (gcbf)
 guidata(gcbf,data)
@@ -173,13 +148,12 @@ prompt=cell(1);
 answer=inputdlg(prompt);
 answer=answer{1,1};
 temp=answer;
-%answer=strcat(answer{1,1},'.wav')
 i=0;
 find=0;
 while(find==0)
     i=i+1;
     if i>length(data.tbcell)
-        disp('Signal non trouvé');
+        warndlg(sprintf('Son incorrecte'));
         break;
     end;
     if (data.tbcell{i,1}==temp)
@@ -187,10 +161,6 @@ while(find==0)
         find=1;
     end;
 end;
-%signal=wavread(answer);
-%wavplay(signal,data.Fs);
-
-
 guidata(gcbf,data)
 
 function match(obj,event)
@@ -206,19 +176,8 @@ disp(mot);
 mot=upper(mot);
 web(strcat('http://en.wikipedia.org/wiki/',mot));
 
-%prompt=cell(1);
-%answer = inputdlg(prompt);
-%data.answer=answer;
-% Augmentation de la valeur de nCompteur
-    %data.nCompteur=data.nCompteur+1;
-
-% Modification de sa propriété String
-    %set(data.resultat,'string',num2str(data.nCompteur));
 
 % Enregistrement des données modifiées dans les données d'application de l'objet Figure
 % contenant l'objet graphique dont l'action est exécutée (gcbf)
 guidata(gcbf,data)
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%FIN DE LA SOUS-FONCTION AJOUTER%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,19 +1,6 @@
 function [moyenne] = MFCC_Extraction_2(A, B, Fs)
-
-%Fs typiquement 11000
-
-%lire le fichier .wav
-%A=audioread(file1);
-%B=audioread(file2);
-%renvoi 12 coefficients MFC -> caractéristiques du signal
 A_Mfcc= melcepst(A,Fs);
 B_Mfcc= melcepst(B,Fs);
-%afficher sur graphique
-%subplot(221)
-%plot(A_Mfcc);
-%subplot(222);
-%plot(B_Mfcc);
-%trouver le nombre de lignes pour redimensionnement, colonnes = toujours 12
 [ARows,ACols] = size(A_Mfcc);
 [BRows,BCols] = size(B_Mfcc);
 
@@ -21,7 +8,7 @@ B_Mfcc= melcepst(B,Fs);
 %comparer le nombre de lignes de chaque matrice 
 cmp = ARows - BRows;
     if (cmp > 0)
-        % A est plus grand et B prends la taille de A, on remplit de 0s
+        % A est plus grand et B prends la taille de A
         temp = zeros(ARows,BCols);
     
         for i=1:BCols
@@ -56,15 +43,6 @@ for i=1:BCols
     sum = sum + temp3;
 end
 moyenne = sum / ACols;
-   
-   % disp('ce sont les mêmes lettres,  distance moyenne ='); 
-    
- %disp('ce sont des lettres différentes,  distance moyenne ='); 
-
-
-
-
-
 
 
 
