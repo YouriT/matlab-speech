@@ -170,9 +170,19 @@ guidata(gcbf,data)
 
 function match(obj,event)
 data=guidata(gcbf);
-signal=record2data(2,1);
-a=diffBetweenSignals(signal,data.tbsignaux);
-disp(a);
+recognizion=record2data(5,1,16000);
+a=diffBetweenSignals_newGen(recognizion,data.tbsignaux,16000);
+
+disp(a);    
+longueur_mot=length(a);
+mot=blanks(longueur_mot);
+for i=1:longueur_mot
+    mot(i)=data.tbcell{a{1,i},1};
+end
+disp(mot);
+
+web(strcat('http://en.wikipedia.org/wiki/',mot));
+
 %prompt=cell(1);
 %answer = inputdlg(prompt);
 %data.answer=answer;

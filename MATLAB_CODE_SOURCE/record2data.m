@@ -2,7 +2,7 @@ function [avg] = record2data(duration, n,Fs)
 
 %Fs typiquement 11000
 
-acc = zeros(duration*8000,1);
+acc = zeros(duration*Fs,1);
 for i=1:n
     recordSignal = record(Fs, duration);
     voice = getaudiodata(recordSignal);

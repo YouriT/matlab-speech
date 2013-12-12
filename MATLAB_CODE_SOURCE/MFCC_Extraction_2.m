@@ -9,10 +9,10 @@ function [moyenne] = MFCC_Extraction_2(A, B, Fs)
 A_Mfcc= melcepst(A,Fs);
 B_Mfcc= melcepst(B,Fs);
 %afficher sur graphique
-subplot(221)
-plot(A_Mfcc);
-subplot(222);
-plot(B_Mfcc);
+%subplot(221)
+%plot(A_Mfcc);
+%subplot(222);
+%plot(B_Mfcc);
 %trouver le nombre de lignes pour redimensionnement, colonnes = toujours 12
 [ARows,ACols] = size(A_Mfcc);
 [BRows,BCols] = size(B_Mfcc);
@@ -56,11 +56,11 @@ for i=1:12
     sum = sum + temp3;
 end
 moyenne = sum / 12;
-    %if (moyenne > 0.5)
+   
    % disp('ce sont les mêmes lettres,  distance moyenne ='); 
     
-%else disp('ce sont des lettres différentes,  distance moyenne ='); 
-%end
+ %disp('ce sont des lettres différentes,  distance moyenne ='); 
+
 
 
 
