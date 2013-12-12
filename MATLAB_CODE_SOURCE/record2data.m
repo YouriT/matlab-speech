@@ -13,6 +13,8 @@ for i=1:n
         datas = cleanSignal(datas);
     else
         avg = voice;
+        subplot(2,2,4);
+        plot(voice);
         return;
     end
     
@@ -20,11 +22,11 @@ for i=1:n
         datas(length(acc)) = 0;
     end
     acc = acc + datas;
-    subplot(n+1,1,i);
-    plot(datas);
+%     subplot(n+1,1,i);
+%     plot(datas);
 end
 
 avg = acc/n;
-subplot(n+1,1,n+1);
-plot(acc/n);
+subplot(2,2,4);
+plot(acc);
 end

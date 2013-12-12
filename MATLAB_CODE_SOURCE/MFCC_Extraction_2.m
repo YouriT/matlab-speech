@@ -22,9 +22,9 @@ B_Mfcc= melcepst(B,Fs);
 cmp = ARows - BRows;
     if (cmp > 0)
         % A est plus grand et B prends la taille de A, on remplit de 0s
-        temp = zeros(ARows,12);
+        temp = zeros(ARows,BCols);
     
-        for i=1:12
+        for i=1:BCols
            for j=1:BRows
                temp(j,i)=B_Mfcc(j,i);
            end
@@ -33,8 +33,8 @@ cmp = ARows - BRows;
 
     else
         % B est plus grand et A doit prendre la taille de B 
-        temp = zeros(BRows,12);
-        for i=1:12
+        temp = zeros(BRows,ACols);
+        for i=1:ACols
             for j=1:ARows
                 temp(j,i)=A_Mfcc(j,i);
             end
@@ -46,7 +46,7 @@ cmp = ARows - BRows;
 
 
 sum=0;
-for i=1:12
+for i=1:BCols
     
     temp1=A_Mfcc(:,i);
     temp2=B_Mfcc(:,i);
@@ -55,7 +55,7 @@ for i=1:12
     
     sum = sum + temp3;
 end
-moyenne = sum / 12;
+moyenne = sum / ACols;
    
    % disp('ce sont les mêmes lettres,  distance moyenne ='); 
     

@@ -24,6 +24,13 @@ uicontrol('style','text',...
     'position',[0.35 0.9 0.3 0.03],... %[X,Y,Largeur,Hauteur]
     'string','Dictionnaire d''acronyme');
 
+% Création de l'objet affiché lors d'un enregristrement audio
+uicontrol('style','text',...
+    'units','normalized',...
+    'position',[0.5 0.5 0.3 0.03],... %[X,Y,Largeur,Hauteur]
+    'string','',...
+    'tag','resultat');
+
 % Création de l'objet Uicontrol Bouton Enregistrer
 uicontrol('style','pushbutton',...
     'units','normalized',...
@@ -75,13 +82,14 @@ data.nbits_channel=1;
 
 %L'utilisateur enregistre un son
 data.isListenning=0;
+data.resultat=blanks(1);
 %Nombre de lettre que l'utilisateur a enregistré
 data.nbletter=0;
 %Tableau contenant les lettres enregistrées
 data.tbcell = cell(data.nbletter,1);
 data.tbsignaux=cell(data.nbletter,1);
 %Alphabet
-data.alphabet={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+data.alphabet={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z','0','1','2','3','4','5','6','7','8','9'};
 for i=1:length(data.alphabet)
     path=strcat(data.alphabet{i},'.wav');
     if exist(path)
@@ -175,7 +183,7 @@ while(find==0)
         break;
     end;
     if (data.tbcell{i,1}==temp)
-        wavplay(data.tbsignaux{i,1},data.Fs);
+        sound(data.tbsignaux{i,1},data.Fs);
         find=1;
     end;
 end;
