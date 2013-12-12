@@ -187,7 +187,7 @@ guidata(gcbf,data)
 
 function match(obj,event)
 data=guidata(gcbf);
-recognizion=record2data(5,1,16000);
+recognizion=record2data(-1,1,16000);
 a=diffBetweenSignals_newGen(recognizion,data.tbsignaux,16000);    
 longueur_mot=length(a);
 mot=blanks(longueur_mot);
